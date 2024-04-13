@@ -6,5 +6,5 @@ app.http('crm-create-lead', {
   methods: ['POST'],
   authLevel: 'anonymous',
   handler: (r, c) => Authenticate(r, c, HandleCreateLead),
-  route: "/crm/create/lead"
+  route: 'crm/create/lead',
 });

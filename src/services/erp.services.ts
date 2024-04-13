@@ -12,10 +12,13 @@ export async function SaveDocs(
   auth: InvocationContext['auth']
 ) {
   const formdata = new FormData();
-  formdata.append('doc', JSON.stringify(data));
   formdata.append('action', 'Save');
+  formdata.append(
+    'doc',
+    JSON.stringify({ ...data, company: auth.organization.name })
+  );
 
-  const { data: response } = await axios({
+  const { data: response } = await axios<{ docs: [any] }>({
     method: 'POST',
     url: '/api/method/frappe.desk.form.save.savedocs',
     baseURL: variables.ERP_BASEURL,
@@ -26,5 +29,5 @@ export async function SaveDocs(
     data: formdata,
   });
 
-  return response;
+  return response?.docs.at(0);
 }
