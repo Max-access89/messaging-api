@@ -1,0 +1,18 @@
+{
+  "doctype": "Lead",
+  "owner": "sulemana@access89.com",
+  "naming_series": "CRM-LEAD-.YYYY.-",
+  "lead_owner": "sulemana@access89.com",
+  "status": "Lead",
+  "type": "",
+  "request_type": "",
+  "no_of_employees": "1-10",
+  "country": "Ghana",
+  "qualification_status": "Unqualified",
+  "company": "Cepodek+Inc",
+  "language": "en",
+  "disabled": 0,
+  "unsubscribed": 0,
+  "blog_subscriber": 0,
+  "first_name": "Ozzy"
+}
