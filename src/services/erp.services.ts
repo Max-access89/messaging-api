@@ -1,14 +1,15 @@
 import { InvocationContext } from '@azure/functions';
 import axios from 'axios';
+import { isEmpty } from 'lodash';
 import { variables } from '../utils/env';
 
-interface SaveDocsData {
+interface DocsData {
   doctype: string;
   [key: string]: any;
 }
 
 export async function SaveDocs(
-  data: SaveDocsData,
+  data: DocsData,
   auth: InvocationContext['auth']
 ) {
   const formdata = new FormData();
@@ -30,4 +31,45 @@ export async function SaveDocs(
   });
 
   return response?.docs.at(0);
+}
+
+export async function ListDocs(
+  params: DocsData,
+  auth: InvocationContext['auth']
+) {
+  console.log(params);
+  const formdata = new FormData();
+  Object.entries(params).forEach(([key, value]) => {
+    formdata.append(key, value);
+  });
+
+  const { data: response } = await axios<{
+    message: { keys: Array<string>; values: Array<Array<any>> };
+  }>({
+    method: 'POST',
+    url: '/api/method/frappe.desk.reportview.get',
+    baseURL: variables.ERP_BASEURL,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: `token ${auth.engine.apiKey}:${auth.engine.apiSecret}`,
+    },
+    data: formdata,
+  });
+
+  if (!isEmpty(response.message)) {
+    const keys = response.message?.keys || [];
+    const values = response.message?.values || [];
+
+    const parsedResponse = values?.map((value) => {
+      const doc: Record<string, any> = {};
+      keys.forEach((key, index) => {
+        doc[key] = value[index];
+      });
+      return doc;
+    });
+
+    return parsedResponse;
+  }
+
+  return [];
 }

@@ -35,3 +35,13 @@ export const HandleCreateLeadSchema = z.object({
   city: z.string().min(1),
   state: z.string().min(1),
 });
+
+export const HandleListLeadSchema = z.object({
+  doctype: z.literal('Lead').default('Lead'),
+  fields: z.array(z.any()).default(['*']),
+  filters: z.string(),
+  order_by: z.string().optional(),
+  start: z.string().optional().default('2'),
+  page_length: z.string().optional().default('50'),
+  view: z.enum(['List']).default('List'),
+});
