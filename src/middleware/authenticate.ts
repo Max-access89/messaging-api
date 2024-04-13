@@ -43,7 +43,10 @@ export async function Authenticate(
     }) as JwtPayload;
 
     // append auth record to invocation context
-    Object.assign(context, { ...context, auth: verified });
+    Object.assign(context, {
+      ...context,
+      auth: { ...verified, engine: verified.erpnext },
+    });
 
     // fire next function
     return nextFunction(request, context);
