@@ -2,25 +2,28 @@ import {
   HttpRequest,
   HttpResponseInit,
   InvocationContext,
-} from '@azure/functions';
-import { errorHandler } from '../../../features/error.handler';
-import { responseInfo } from '../../../features/response.info';
-import { ListDocs, SaveDocs } from '../../../services/erp.services';
-import { HandleCreateLeadSchema, HandleListLeadSchema } from './validators';
+} from "@azure/functions";
+import { errorHandler } from "../../../features/error.handler";
+import { responseInfo } from "../../../features/response.info";
+import { ListDocs, SaveDocs } from "../../../services/erp.services";
+import {
+  HandleCreateOpportunitySchema,
+  HandleListOpportunitySchema,
+} from "./validators";
 
-export async function HandleCreateLead(
+export async function HandleCreateOpportunity(
   request: HttpRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
   try {
-    const payload = HandleCreateLeadSchema.parse(await request.json());
+    const payload = HandleCreateOpportunitySchema.parse(await request.json());
 
     const response = await SaveDocs(payload, context.auth);
 
     return {
       status: 200,
       jsonBody: {
-        responseInfo: responseInfo['success'],
+        responseInfo: responseInfo["success"],
         data: response,
       },
     };
@@ -29,12 +32,12 @@ export async function HandleCreateLead(
   }
 }
 
-export async function HandleListLead(
+export async function HandleListOpportunities(
   request: HttpRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
   try {
-    const payload = HandleListLeadSchema.parse(
+    const payload = HandleListOpportunitySchema.parse(
       Object.fromEntries(request.query)
     );
 
@@ -43,7 +46,7 @@ export async function HandleListLead(
     return {
       status: 200,
       jsonBody: {
-        responseInfo: responseInfo['success'],
+        responseInfo: responseInfo["success"],
         data: response,
       },
     };
