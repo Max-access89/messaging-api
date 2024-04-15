@@ -15,7 +15,7 @@ export const HandleCreateOpportunitySchema = z.object({
   opportunity_from: z.enum(["Customer", "Lead", "Prospect"]),
   party_name: z.string().min(1),
   customer_name: z.string().min(1),
-  salesStage: z.enum([
+  sales_stage: z.enum([
     "Identifying Decision Makers",
     "Needs Analysis",
     "Negotiation/Review",
@@ -37,9 +37,8 @@ export const HandleCreateOpportunitySchema = z.object({
     "Supplier Reference",
     "Walk in",
   ]),
-  expected_closing: z.date(),
+  // expected_closing: z.date(),
   probability: z.number(),
-  name: z.string().min(1),
   owner: z.string().min(1),
   no_of_employees: z.enum([
     "1-10",
@@ -52,13 +51,13 @@ export const HandleCreateOpportunitySchema = z.object({
   country: z.string().min(1),
   annual_revenue: z.number(),
   industry: z.string().min(1),
-  city: z.string().min(1),
-  state: z.string().min(1),
+  city: z.string(),
+  state: z.string(),
   territory: z.enum(["All Territories", "Ghana", "Rest of the world"]),
-  website: z.string().min(1),
-  market_segment: z.enum(["Lower income", "Middle Income", "Upeer income"]),
+  website: z.string(),
+  market_segment: z.enum(["Lower Income", "Middle Income", "Upper Income"]),
   currency: z.string().min(1),
-  amount: z.string().min(1),
+  opportunity_amount: z.number(),
 });
 
 export const HandleListOpportunitySchema = z.object({
@@ -70,4 +69,17 @@ export const HandleListOpportunitySchema = z.object({
   page_length: z.string().optional().default("50"),
   view: z.enum(["List"]).default("List"),
   group_by: z.string().optional(),
+});
+
+export const HandleGetOpportunitySchema = z.object({
+  id: z.string().min(1),
+});
+
+export const HandleUpdateOpportunitySchema =
+  HandleCreateOpportunitySchema.extend({
+    id: z.string().min(1),
+  });
+
+export const HandleDeleteOpportunitySchema = z.object({
+  id: z.string().min(1),
 });

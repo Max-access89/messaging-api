@@ -12,17 +12,19 @@ import {
   SaveDocs,
 } from "../../../services/erp.services";
 import {
-  HandleCreateLeadSchema,
-  HandleListLeadSchema,
-  HandleUpdateLeadSchema,
+  HandleCreateOpportunitySchema,
+  HandleDeleteOpportunitySchema,
+  HandleGetOpportunitySchema,
+  HandleListOpportunitySchema,
+  HandleUpdateOpportunitySchema,
 } from "./validators";
 
-export async function HandleCreateLead(
+export async function HandleCreateOpportunity(
   request: HttpRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
   try {
-    const payload = HandleCreateLeadSchema.parse(await request.json());
+    const payload = HandleCreateOpportunitySchema.parse(await request.json());
 
     const response = await SaveDocs(payload, context.auth);
 
@@ -38,14 +40,12 @@ export async function HandleCreateLead(
   }
 }
 
-export async function HandleListLead(
+export async function HandleListOpportunities(
   request: HttpRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
-  console.log("function is fired");
-
   try {
-    const payload = HandleListLeadSchema.parse(
+    const payload = HandleListOpportunitySchema.parse(
       Object.fromEntries(request.query)
     );
 
@@ -63,13 +63,12 @@ export async function HandleListLead(
   }
 }
 
-export async function HandleGetLead(
+export async function HandleGetOpportunity(
   request: HttpRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
   try {
-    const { id } = request.params;
-
+    const { id } = HandleGetOpportunitySchema.parse(request.params);
     const response = await GetDocById(id, context.auth);
 
     return {
@@ -84,16 +83,13 @@ export async function HandleGetLead(
   }
 }
 
-export async function HandleUpdateLead(
+export async function HandleUpdateOpportunity(
   request: HttpRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
   try {
-    const { id } = request.params;
-    const payload = HandleUpdateLeadSchema.parse(await request.json());
-
-    // const response = await UpdateDoc(id, payload, context.auth);
-    // const response = await SaveDocs(payload, context.auth);
+    const payload = HandleUpdateOpportunitySchema.parse(await request.json());
+    // const response = await SaveDocs(payload.id, payload, context.auth);
 
     return {
       status: 200,
@@ -107,20 +103,19 @@ export async function HandleUpdateLead(
   }
 }
 
-export async function HandleDeleteLead(
+export async function HandleDeleteOpportunity(
   request: HttpRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
   try {
-    const { id } = request.params;
-
-    const response = await DeleteDoc(id, context.auth);
+    const { id } = HandleDeleteOpportunitySchema.parse(request.params);
+    const message = await DeleteDoc(id, context.auth);
 
     return {
       status: 200,
       jsonBody: {
         responseInfo: responseInfo["success"],
-        data: response,
+        message: message,
       },
     };
   } catch (error) {

@@ -1,10 +1,6 @@
 import { app } from "@azure/functions";
 
 import { Authenticate } from "../middleware/authenticate";
-import {
-  HandleCreateOpportunity,
-  HandleListOpportunities,
-} from "../handlers/crm/opportunities";
 
 import {
   HandleCreateLead,
@@ -13,6 +9,13 @@ import {
   HandleListLead,
   HandleUpdateLead,
 } from "../handlers/crm/lead/handlers";
+import {
+  HandleCreateOpportunity,
+  HandleDeleteOpportunity,
+  HandleGetOpportunity,
+  HandleListOpportunities,
+  HandleUpdateOpportunity,
+} from "../handlers/crm/opportunities/handlers";
 
 // Lead
 app.http("crm-get-lead", {
@@ -63,4 +66,25 @@ app.http("crm-list-opprtunities", {
   authLevel: "anonymous",
   handler: (r, c) => Authenticate(r, c, HandleListOpportunities),
   route: "crm/list/opportunity",
+});
+
+app.http("crm-get-opportunity", {
+  methods: ["GET"],
+  authLevel: "anonymous",
+  handler: (r, c) => Authenticate(r, c, HandleGetOpportunity),
+  route: "crm/get/opportunity/{id}",
+});
+
+app.http("crm-update-opportunity", {
+  methods: ["POST"],
+  authLevel: "anonymous",
+  handler: (r, c) => Authenticate(r, c, HandleUpdateOpportunity),
+  route: "crm/update/opportunity/{id}",
+});
+
+app.http("crm-delete-opportunity", {
+  methods: ["POST"],
+  authLevel: "anonymous",
+  handler: (r, c) => Authenticate(r, c, HandleDeleteOpportunity),
+  route: "crm/delete/opportunity/{id}",
 });

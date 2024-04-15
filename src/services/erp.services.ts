@@ -74,7 +74,6 @@ export async function ListDocs(
   return [];
 }
 
-// Get a specific document by ID
 export async function GetDocById(
   docId: string,
   auth: InvocationContext["auth"]
@@ -96,35 +95,6 @@ export async function GetDocById(
   return response?.docs.at(0);
 }
 
-// Update a document
-export async function UpdateDoc(
-  docId: string,
-  data: DocsData,
-  auth: InvocationContext["auth"]
-) {
-  const formdata = new FormData();
-  formdata.append("action", "Save");
-  formdata.append("name", docId);
-  formdata.append(
-    "doc",
-    JSON.stringify({ ...data, company: auth.organization.name })
-  );
-
-  const { data: response } = await axios<{ docs: [any] }>({
-    method: "POST",
-    url: "/api/method/frappe.desk.form.save.savedocs",
-    baseURL: variables.ERP_BASEURL,
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      Authorization: `token ${auth.engine.apiKey}:${auth.engine.apiSecret}`,
-    },
-    data: formdata,
-  });
-
-  return response?.docs.at(0);
-}
-
-// Delete a document
 export async function DeleteDoc(
   docId: string,
   auth: InvocationContext["auth"]
