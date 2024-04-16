@@ -37,7 +37,6 @@ export async function ListDocs(
   params: DocsData,
   auth: InvocationContext["auth"]
 ) {
-  console.log(params);
   const formdata = new FormData();
   Object.entries(params).forEach(([key, value]) => {
     formdata.append(key, value);
@@ -79,11 +78,12 @@ export async function GetDocById(
   auth: InvocationContext["auth"]
 ) {
   const formdata = new FormData();
-  formdata.append("name", docId); // Assuming "name" is the unique identifier
+  formdata.append("name", docId);
+  formdata.append("doctype", "Opportunity");
 
   const { data: response } = await axios<{ docs: [any] }>({
     method: "POST",
-    url: "/api/method/frappe.desk.form.getdoc",
+    url: "/api/method/frappe.desk.form.load.getdoc",
     baseURL: variables.ERP_BASEURL,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",

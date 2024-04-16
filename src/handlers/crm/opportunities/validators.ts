@@ -72,6 +72,7 @@ export const HandleListOpportunitySchema = z.object({
 });
 
 export const HandleGetOpportunitySchema = z.object({
+  doctype: z.literal("Opportunity").default("Opportunity"),
   id: z.string().min(1),
 });
 
