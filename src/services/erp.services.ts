@@ -75,11 +75,12 @@ export async function ListDocs(
 
 export async function GetDocById(
   docId: string,
+  doctype: string,
   auth: InvocationContext["auth"]
 ) {
   const formdata = new FormData();
   formdata.append("name", docId);
-  formdata.append("doctype", "Opportunity");
+  formdata.append("doctype", doctype);
 
   const { data: response } = await axios<{ docs: [any] }>({
     method: "POST",

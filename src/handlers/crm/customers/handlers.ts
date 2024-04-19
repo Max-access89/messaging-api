@@ -12,17 +12,19 @@ import {
   SaveDocs,
 } from "../../../services/erp.services";
 import {
-  HandleCreateLeadSchema,
-  HandleListLeadSchema,
-  HandleUpdateLeadSchema,
+  HandleCreateCustomerSchema,
+  HandleDeleteCustomerSchema,
+  HandleGetCustomerSchema,
+  HandleListCustomerSchema,
+  HandleUpdateCustomerSchema,
 } from "./validators";
 
-export async function HandleCreateLead(
+export async function HandleCreateCustomer(
   request: HttpRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
   try {
-    const payload = HandleCreateLeadSchema.parse(await request.json());
+    const payload = HandleCreateCustomerSchema.parse(await request.json());
 
     const response = await SaveDocs(payload, context.auth);
 
@@ -38,12 +40,12 @@ export async function HandleCreateLead(
   }
 }
 
-export async function HandleListLead(
+export async function HandleListCustomers(
   request: HttpRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
   try {
-    const payload = HandleListLeadSchema.parse(
+    const payload = HandleListCustomerSchema.parse(
       Object.fromEntries(request.query)
     );
 
@@ -61,14 +63,13 @@ export async function HandleListLead(
   }
 }
 
-export async function HandleGetLead(
+export async function HandleGetCustomer(
   request: HttpRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
   try {
-    const { id } = request.params;
-
-    const response = await GetDocById(id, "Lead", context.auth);
+    const { id } = HandleGetCustomerSchema.parse(request.params);
+    const response = await GetDocById(id, "Customer", context.auth);
 
     return {
       status: 200,
@@ -82,16 +83,13 @@ export async function HandleGetLead(
   }
 }
 
-export async function HandleUpdateLead(
+export async function HandleUpdateCustomer(
   request: HttpRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
   try {
-    const { id } = request.params;
-    const payload = HandleUpdateLeadSchema.parse(await request.json());
-
-    // const response = await UpdateDoc(id, payload, context.auth);
-    // const response = await SaveDocs(payload, context.auth);
+    const payload = HandleUpdateCustomerSchema.parse(await request.json());
+    // const response = await SaveDocs(payload.id, payload, context.auth);
 
     return {
       status: 200,
@@ -105,20 +103,19 @@ export async function HandleUpdateLead(
   }
 }
 
-export async function HandleDeleteLead(
+export async function HandleDeleteCustomer(
   request: HttpRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
   try {
-    const { id } = request.params;
-
-    const response = await DeleteDoc(id, context.auth);
+    const { id } = HandleDeleteCustomerSchema.parse(request.params);
+    const message = await DeleteDoc(id, context.auth);
 
     return {
       status: 200,
       jsonBody: {
         responseInfo: responseInfo["success"],
-        data: response,
+        message: message,
       },
     };
   } catch (error) {

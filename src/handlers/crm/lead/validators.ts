@@ -39,7 +39,7 @@ export const HandleCreateLeadSchema = z.object({
 export const HandleListLeadSchema = z.object({
   doctype: z.literal("Lead").default("Lead"),
   fields: z.array(z.any()).default(["*"]),
-  filters: z.string(),
+  filters: z.string().optional(),
   order_by: z.string().optional(),
   start: z.string().optional().default("2"),
   page_length: z.string().optional().default("50"),

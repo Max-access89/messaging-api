@@ -63,7 +63,7 @@ export const HandleCreateOpportunitySchema = z.object({
 export const HandleListOpportunitySchema = z.object({
   doctype: z.literal("Opportunity").default("Opportunity"),
   fields: z.array(z.any()).default(["*"]),
-  filters: z.string(),
+  filters: z.string().optional(),
   order_by: z.string().optional(),
   start: z.string().optional().default("2"),
   page_length: z.string().optional().default("50"),
