@@ -23,6 +23,13 @@ import {
   HandleListCustomers,
   HandleUpdateCustomer,
 } from "../handlers/crm/customers/handlers";
+import {
+  HandleCreateCampaign,
+  HandleDeleteCampaign,
+  HandleGetCampaign,
+  HandleListCampaigns,
+  HandleUpdateCampaign,
+} from "../handlers/crm/campaign/handlers";
 
 // Lead
 app.http("crm-get-lead", {
@@ -130,4 +137,40 @@ app.http("crm-delete-customer", {
   authLevel: "anonymous",
   handler: (r, c) => Authenticate(r, c, HandleDeleteCustomer),
   route: "crm/delete/customer/{id}",
+});
+
+// Campaign
+app.http("crm-create-campaign", {
+  methods: ["POST"],
+  authLevel: "anonymous",
+  handler: (r, c) => Authenticate(r, c, HandleCreateCampaign),
+  route: "crm/create/campaign",
+});
+
+app.http("crm-list-campaign", {
+  methods: ["GET"],
+  authLevel: "anonymous",
+  handler: (r, c) => Authenticate(r, c, HandleListCampaigns),
+  route: "crm/list/campaign",
+});
+
+app.http("crm-get-campaign", {
+  methods: ["GET"],
+  authLevel: "anonymous",
+  handler: (r, c) => Authenticate(r, c, HandleGetCampaign),
+  route: "crm/get/campaign/{id}",
+});
+
+app.http("crm-update-campaign", {
+  methods: ["POST"],
+  authLevel: "anonymous",
+  handler: (r, c) => Authenticate(r, c, HandleUpdateCampaign),
+  route: "crm/update/campaign/{id}",
+});
+
+app.http("crm-delete-campaign", {
+  methods: ["POST"],
+  authLevel: "anonymous",
+  handler: (r, c) => Authenticate(r, c, HandleDeleteCampaign),
+  route: "crm/delete/campaign/{id}",
 });
