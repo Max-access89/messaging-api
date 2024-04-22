@@ -69,6 +69,7 @@ export async function errorHandler(error: any): Promise<HttpResponseInit> {
   return {
     status: errorMap.get('status'),
     jsonBody: {
+      responseInfo: responseInfo['clientError'],
       message: errorMap.get('message'),
     },
   };
