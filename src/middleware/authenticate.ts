@@ -2,13 +2,13 @@ import {
   HttpRequest,
   HttpResponseInit,
   InvocationContext,
-} from '@azure/functions';
-import { config } from 'dotenv';
-import createHttpError from 'http-errors';
-import { JwtPayload, decode, verify } from 'jsonwebtoken';
-import jwksClient from 'jwks-rsa';
-import { errorHandler } from '../features/error.handler';
-import { variables } from '../utils/env';
+} from "@azure/functions";
+import { config } from "dotenv";
+import createHttpError from "http-errors";
+import { JwtPayload, decode, verify } from "jsonwebtoken";
+import jwksClient from "jwks-rsa";
+import { errorHandler } from "../features/error.handler";
+import { variables } from "../utils/env";
 
 type NextFunction = (
   request: HttpRequest,
@@ -26,9 +26,10 @@ export async function Authenticate(
   nextFunction: NextFunction
 ): Promise<HttpResponseInit> {
   try {
-    const [, token] = String(request.headers.get('authorization')).split(' ');
+    const [, token] = String(request.headers.get("authorization")).split(" ");
+    // console.log({ request, context, nextFunction });
 
-    if (!token) throw createHttpError[401]('Invalid Bearer Token');
+    if (!token) throw createHttpError[401]("Invalid Bearer Token");
 
     // decode token to obtain KID
     const decoded = decode(token, { complete: true }) as JwtPayload;
@@ -39,7 +40,7 @@ export async function Authenticate(
     // verify token with signing key
     const verified = verify(token, signingKey.getPublicKey(), {
       audience: [variables.AUTH0_SPA_AUDIENCE],
-      algorithms: ['RS256'],
+      algorithms: ["RS256"],
     }) as JwtPayload;
 
     // append auth record to invocation context

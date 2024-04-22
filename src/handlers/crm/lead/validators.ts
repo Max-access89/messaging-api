@@ -1,22 +1,22 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 export const HandleCreateLeadSchema = z.object({
-  doctype: z.literal('Lead').default('Lead'),
-  status: z.enum(['Lead', 'Open', 'Replied']),
-  type: z.enum(['Client', 'Consultant', 'Channel Partner']),
+  doctype: z.literal("Lead").default("Lead"),
+  status: z.enum(["Lead", "Open", "Replied"]),
+  type: z.enum(["Client", "Consultant", "Channel Partner"]),
   request_type: z.enum([
-    'Product Enquiry',
-    'Request for Information',
-    'Suggestions',
-    'Other',
+    "Product Enquiry",
+    "Request for Information",
+    "Suggestions",
+    "Other",
   ]),
   no_of_employees: z.enum([
-    '1-10',
-    '11-50',
-    '51-200',
-    '201-500',
-    '501-1000',
-    '1000+',
+    "1-10",
+    "11-50",
+    "51-200",
+    "201-500",
+    "501-1000",
+    "1000+",
   ]),
   country: z.string().min(1),
   qualification_status: z.string().min(1),
@@ -37,11 +37,23 @@ export const HandleCreateLeadSchema = z.object({
 });
 
 export const HandleListLeadSchema = z.object({
-  doctype: z.literal('Lead').default('Lead'),
-  fields: z.array(z.any()).default(['*']),
-  filters: z.string(),
+  doctype: z.literal("Lead").default("Lead"),
+  fields: z.array(z.any()).default(["*"]),
+  filters: z.string().optional(),
   order_by: z.string().optional(),
-  start: z.string().optional().default('2'),
-  page_length: z.string().optional().default('50'),
-  view: z.enum(['List']).default('List'),
+  start: z.string().optional().default("2"),
+  page_length: z.string().optional().default("50"),
+  view: z.enum(["List"]).default("List"),
+});
+
+export const HandleUpdateLeadSchema = HandleCreateLeadSchema.extend({
+  doctype: z.literal("Lead").default("Lead"),
+}).partial();
+
+export const HandleDeleteLeadSchema = z.object({
+  id: z.string(),
+});
+
+export const HandleGetLeadSchema = z.object({
+  id: z.string(),
 });
