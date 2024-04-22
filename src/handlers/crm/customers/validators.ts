@@ -25,7 +25,7 @@ export const HandleListCustomerSchema = z.object({
   fields: z.array(z.any()).default(["*"]),
   filters: z.string().optional(),
   order_by: z.string().optional(),
-  start: z.string().optional().default("2"),
+  start: z.string().optional().default("0"),
   page_length: z.string().optional().default("50"),
   view: z.enum(["List"]).default("List"),
   group_by: z.string().optional(),
