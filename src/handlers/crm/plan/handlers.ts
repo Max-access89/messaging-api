@@ -53,16 +53,23 @@ export async function HandleGetPlan(
             // Fetch all opportunities using ListDocs function
             const response = await ListDocs(payload, context.auth);
 
-            // const opportunities: OpportunityItem[] = response.data;
+            const opportunities = response;
 
-            // // Calculate the sum of opportunity amounts
-            // const totalAmount = opportunities.reduce(
-            //   (acc, opportunity) => acc + opportunity.opportunity_amount, // Adjust the field name according to the response format
-            //   0
-            // );
+            console.log("the opportunities", opportunities);
 
-            // return totalAmount;
-            return;
+            // Check if opportunities array is empty or undefined
+            if (!opportunities || opportunities.length === 0) {
+              // Return 0 if there are no opportunities
+              return 0;
+            }
+
+            // Calculate the sum of opportunity amounts
+            const totalAmount = opportunities.reduce(
+              (acc, opportunity) => acc + opportunity.opportunity_amount,
+              0
+            );
+
+            return totalAmount;
           } catch (error) {
             throw new Error(
               "Failed to calculate total opportunity amount: " + error
@@ -77,7 +84,7 @@ export async function HandleGetPlan(
         const closed = await calculateTotalOpportunityAmount();
 
         // Calculate the gap to plan
-        // const gapToPlan = plan.planValue - closed;
+        const gapToPlan = plan.planValue - closed;
 
         return {
           status: 200,
@@ -85,7 +92,7 @@ export async function HandleGetPlan(
             responseInfo: responseInfo["success"],
             plan: plan.planValue,
             closed: closed,
-            // gapToPlan: gapToPlan,
+            gap_to_plan: gapToPlan < 0 ? 0 : gapToPlan,
           },
         };
       } catch (error) {
