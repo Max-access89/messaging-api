@@ -14,11 +14,21 @@ datasource db {
 }
 
 model Plan {
-  id        Int   @id @default(autoincrement())
-  planValue Float
+  id            Int    @id @default(autoincrement())
+  plan_value    Float
+  plan_currency String
+  tenure        String
 }
 
 model ForeCast {
-  id            Int   @id @default(autoincrement())
-  forecastValue Float
+  id                Int    @id @default(autoincrement())
+  forecast_value    Float
+  forecast_currency String
+  tenure            Tenure
+}
+
+enum Tenure {
+  Quarterly
+  Biannual
+  Annual
 }

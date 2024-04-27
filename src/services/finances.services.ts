@@ -4,6 +4,7 @@ import { isEmpty } from "lodash";
 import { variables } from "../utils/env";
 import { PrismaClient } from "@prisma/client";
 import { HandleListOpportunities } from "../handlers/crm/opportunities/handlers";
+import { ForecastItem, PlanItem } from "../utils/types";
 
 interface DocsData {
   doctype: string;
@@ -12,15 +13,13 @@ interface DocsData {
 
 const prisma = new PrismaClient();
 
-export async function SetPlan(value: number, auth: InvocationContext["auth"]) {
+export async function SetPlan(data: PlanItem, auth: InvocationContext["auth"]) {
   try {
     // Check if the user is authenticated, you can add your authentication logic here
 
     // Create a new plan record in the database
     const plan = await prisma.plan.create({
-      data: {
-        planValue: value,
-      },
+      data: data,
     });
 
     return plan;
@@ -45,3 +44,43 @@ export async function GetPlan(auth: InvocationContext["auth"]) {
     throw new Error("Failed to get plan: " + error);
   }
 }
+
+export async function SetForecast(
+  data: ForecastItem,
+  auth: InvocationContext["auth"]
+) {
+  try {
+    // Check if the user is authenticated, you can add your authentication logic here
+
+    const forecast = await prisma.foreCast.create({
+      data: data,
+    });
+
+    return forecast;
+  } catch (error) {
+    throw new Error("Failed to set forecast: " + error);
+  }
+}
+
+export async function GetForecast(auth: InvocationContext["auth"]) {
+  try {
+    // Check if the user is authenticated, you can add your authentication logic here
+
+    const forecast = await prisma.foreCast.findFirst();
+
+    if (!forecast) {
+      throw new Error("Forecast not found");
+    }
+
+    return forecast;
+  } catch (error) {
+    throw new Error("Failed to get forecast: " + error);
+  }
+}
+
+export const Finances = {
+  GetForecast,
+  SetForecast,
+  GetPlan,
+  SetPlan,
+};

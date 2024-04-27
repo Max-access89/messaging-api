@@ -1,7 +1,9 @@
 import { z } from "zod";
 
 export const SetPlanSchema = z.object({
-  plan: z.number().positive(),
+  plan_value: z.number().positive(),
+  plan_currency: z.string().min(1),
+  tenure: z.enum(["Quarterly", "Annual", "Biannual"]),
 });
 
 export const GetPlanSchema = z.object({

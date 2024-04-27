@@ -9,7 +9,6 @@ import { SetPlanSchema } from "./validators";
 import { HandleListOpportunitySchema } from "../opportunities/validators";
 import { ListDocs } from "../../../services/erp.services";
 import { GetPlan, SetPlan } from "../../../services/finances.services";
-import { OpportunityItem } from "../../../utils/types";
 
 export async function HandleSetPlan(
   request: HttpRequest,
@@ -20,7 +19,7 @@ export async function HandleSetPlan(
       const payload = SetPlanSchema.parse(await request.json());
 
       // Save the plan value, possibly using a service like Prisma
-      SetPlan(payload.plan, context.auth);
+      SetPlan(payload, context.auth);
 
       return {
         status: 200,
@@ -55,8 +54,6 @@ export async function HandleGetPlan(
 
             const opportunities = response;
 
-            console.log("the opportunities", opportunities);
-
             // Check if opportunities array is empty or undefined
             if (!opportunities || opportunities.length === 0) {
               // Return 0 if there are no opportunities
@@ -84,15 +81,19 @@ export async function HandleGetPlan(
         const closed = await calculateTotalOpportunityAmount();
 
         // Calculate the gap to plan
-        const gapToPlan = plan.planValue - closed;
+        const gapToPlan = plan.plan_value - closed;
 
         return {
           status: 200,
           jsonBody: {
             responseInfo: responseInfo["success"],
-            plan: plan.planValue,
-            closed: closed,
-            gap_to_plan: gapToPlan < 0 ? 0 : gapToPlan,
+            data: {
+              plan_value: plan.plan_value,
+              closed: closed,
+              gap_to_plan: gapToPlan < 0 ? 0 : gapToPlan,
+              plan_currency: plan.plan_currency,
+              tenure: plan.tenure,
+            },
           },
         };
       } catch (error) {
