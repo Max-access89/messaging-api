@@ -1,8 +1,7 @@
 import { z } from "zod";
 
 export const setForecastSchema = z.object({
-  forecast_value: z.number().positive(),
-  forecast_currency: z.string().min(1),
+  forecast_from: z.enum(["Opportunity"]),
   tenure: z.enum(["Quarterly", "Annual", "Biannual"]),
 });
 

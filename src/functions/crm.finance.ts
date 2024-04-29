@@ -6,6 +6,10 @@ import {
   HandleGetForecast,
   HandleSetForecast,
 } from "../handlers/crm/forecast/handlers";
+import {
+  HandleCreateForecastByLeader,
+  HandleListForecastByLeader,
+} from "../handlers/crm/forecastByLeader/handlers";
 
 // Plan
 app.http("crm-set-plan", {
@@ -35,4 +39,19 @@ app.http("crm-get-forecast", {
   authLevel: "anonymous",
   handler: (r, c) => Authenticate(r, c, HandleGetForecast),
   route: "crm/get/forecast",
+});
+
+// Forecast By Leader
+app.http("crm-set-forecast-by-leader", {
+  methods: ["POST"],
+  authLevel: "anonymous",
+  handler: (r, c) => Authenticate(r, c, HandleCreateForecastByLeader),
+  route: "crm/create/forecast/byleader",
+});
+
+app.http("crm-list-forecast-by-leader", {
+  methods: ["GET"],
+  authLevel: "anonymous",
+  handler: (r, c) => Authenticate(r, c, HandleListForecastByLeader),
+  route: "crm/list/forecast/byleader",
 });

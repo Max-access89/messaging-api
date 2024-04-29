@@ -1,3 +1,5 @@
+import { number, string } from "zod";
+
 export interface OpportunityItem {
   opportunity_amount: number;
   // Add other fields as needed
@@ -10,9 +12,14 @@ export interface PlanItem {
 }
 
 export interface ForecastItem {
-  forecast_value: number;
-  forecast_currency: string;
   tenure: "Quarterly" | "Annual" | "Biannual";
+  forecast_from: "Opportunity";
+}
+
+export interface ForecastByLeaderItem {
+  name: string;
+  plan: number;
+  forecast: number;
 }
 
 // enum Tenure {

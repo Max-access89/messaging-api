@@ -4,7 +4,7 @@ import { isEmpty } from "lodash";
 import { variables } from "../utils/env";
 import { PrismaClient } from "@prisma/client";
 import { HandleListOpportunities } from "../handlers/crm/opportunities/handlers";
-import { ForecastItem, PlanItem } from "../utils/types";
+import { ForecastByLeaderItem, ForecastItem, PlanItem } from "../utils/types";
 
 interface DocsData {
   doctype: string;
@@ -78,9 +78,61 @@ export async function GetForecast(auth: InvocationContext["auth"]) {
   }
 }
 
+export async function CreateForecastByLeader(
+  data: ForecastByLeaderItem,
+  auth: InvocationContext["auth"]
+) {
+  try {
+    // Check if the user is authenticated, you can add your authentication logic here
+
+    const forecast = await prisma.foreCastByLeader.create({
+      data: data,
+    });
+
+    return forecast;
+  } catch (error) {
+    throw new Error("Failed to set forecast: " + error);
+  }
+}
+
+export async function GetForecastByLeader(auth: InvocationContext["auth"]) {
+  try {
+    // Check if the user is authenticated, you can add your authentication logic here
+
+    const forecast = await prisma.foreCastByLeader.findFirst();
+
+    if (!forecast) {
+      throw new Error("Forecast not found");
+    }
+
+    return forecast;
+  } catch (error) {
+    throw new Error("Failed to get forecast: " + error);
+  }
+}
+
+export async function ListForecastByLeader(auth: InvocationContext["auth"]) {
+  try {
+    // Check if the user is authenticated, you can add your authentication logic here
+
+    const forecast = await prisma.foreCastByLeader.findMany();
+
+    if (!forecast) {
+      throw new Error("Forecast not found");
+    }
+
+    return forecast;
+  } catch (error) {
+    throw new Error("Failed to get forecast: " + error);
+  }
+}
+
 export const Finances = {
   GetForecast,
   SetForecast,
   GetPlan,
   SetPlan,
+  CreateForecastByLeader,
+  GetForecastByLeader,
+  ListForecastByLeader,
 };
