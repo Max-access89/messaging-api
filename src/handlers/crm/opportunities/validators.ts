@@ -14,7 +14,7 @@ export const HandleCreateOpportunitySchema = z.object({
   opportunity_type: z.enum(["Sales", "Maintenance", "Support"]),
   opportunity_from: z.enum(["Customer", "Lead", "Prospect"]),
   party_name: z.string().min(1),
-  customer_name: z.string().min(1),
+  // customer_name: z.string().min(1),
   sales_stage: z.enum([
     "Identifying Decision Makers",
     "Needs Analysis",
@@ -26,7 +26,7 @@ export const HandleCreateOpportunitySchema = z.object({
     "Value Proposition",
   ]),
   source: z.enum([
-    "Adverstisment",
+    "Advertisement",
     "Campaign",
     "Cold Calling",
     "Customer's Vendor",
@@ -39,7 +39,7 @@ export const HandleCreateOpportunitySchema = z.object({
   ]),
   // expected_closing: z.date(),
   probability: z.number(),
-  owner: z.string().min(1),
+  // owner: z.string().min(1),
   no_of_employees: z.enum([
     "1-10",
     "11-50",
@@ -65,7 +65,7 @@ export const HandleListOpportunitySchema = z.object({
   fields: z.array(z.any()).default(["*"]),
   filters: z.string().optional(),
   order_by: z.string().optional(),
-  start: z.string().optional().default("2"),
+  start: z.string().optional().default("0"),
   page_length: z.string().optional().default("50"),
   view: z.enum(["List"]).default("List"),
   group_by: z.string().optional(),

@@ -12,19 +12,19 @@ import {
   SaveDocs,
 } from "../../../services/erp.services";
 import {
-  HandleCreateCampaignSchema,
-  HandleDeleteCampaignSchema,
-  HandleGetCampaignSchema,
-  HandleListCampaignSchema,
-  HandleUpdateCampaignSchema,
+  HandleCreateProspectSchema,
+  HandleDeleteProspectSchema,
+  HandleGetProspectSchema,
+  HandleListProspectSchema,
+  HandleUpdateProspectSchema,
 } from "./validators";
 
-export async function HandleCreateCampaign(
+export async function HandleCreateProspect(
   request: HttpRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
   try {
-    const payload = HandleCreateCampaignSchema.parse(await request.json());
+    const payload = HandleCreateProspectSchema.parse(await request.json());
 
     const response = await SaveDocs(payload, context.auth);
 
@@ -40,12 +40,12 @@ export async function HandleCreateCampaign(
   }
 }
 
-export async function HandleListCampaigns(
+export async function HandleListProspects(
   request: HttpRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
   try {
-    const payload = HandleListCampaignSchema.parse(
+    const payload = HandleListProspectSchema.parse(
       Object.fromEntries(request.query)
     );
 
@@ -63,13 +63,13 @@ export async function HandleListCampaigns(
   }
 }
 
-export async function HandleGetCampaign(
+export async function HandleGetProspect(
   request: HttpRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
   try {
-    const { id } = HandleGetCampaignSchema.parse(request.params);
-    const response = await GetDocById(id, "Campaign", context.auth);
+    const { id } = HandleGetProspectSchema.parse(request.params);
+    const response = await GetDocById(id, "Prospect", context.auth);
 
     return {
       status: 200,
@@ -83,12 +83,12 @@ export async function HandleGetCampaign(
   }
 }
 
-export async function HandleUpdateCampaign(
+export async function HandleUpdateProspect(
   request: HttpRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
   try {
-    const payload = HandleUpdateCampaignSchema.parse(await request.json());
+    const payload = HandleUpdateProspectSchema.parse(await request.json());
     // const response = await SaveDocs(payload.id, payload, context.auth);
 
     return {
@@ -103,12 +103,12 @@ export async function HandleUpdateCampaign(
   }
 }
 
-export async function HandleDeleteCampaign(
+export async function HandleDeleteProspect(
   request: HttpRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
   try {
-    const { id } = HandleDeleteCampaignSchema.parse(request.params);
+    const { id } = HandleDeleteProspectSchema.parse(request.params);
     const message = await DeleteDoc(id, context.auth);
 
     return {

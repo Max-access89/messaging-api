@@ -69,7 +69,7 @@ export async function HandleGetOpportunity(
 ): Promise<HttpResponseInit> {
   try {
     const { id } = HandleGetOpportunitySchema.parse(request.params);
-    const response = await GetDocById(id, "Customer", context.auth);
+    const response = await GetDocById(id, "Opportunity", context.auth);
 
     return {
       status: 200,

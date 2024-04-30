@@ -24,12 +24,12 @@ import {
   HandleUpdateCustomer,
 } from "../handlers/crm/customers/handlers";
 import {
-  HandleCreateCampaign,
-  HandleDeleteCampaign,
-  HandleGetCampaign,
-  HandleListCampaigns,
-  HandleUpdateCampaign,
-} from "../handlers/crm/campaign/handlers";
+  HandleCreateProspect,
+  HandleDeleteProspect,
+  HandleGetProspect,
+  HandleListProspects,
+  HandleUpdateProspect,
+} from "../handlers/crm/prospect/handlers";
 
 // Lead
 app.http("crm-get-lead", {
@@ -139,38 +139,38 @@ app.http("crm-delete-customer", {
   route: "crm/delete/customer/{id}",
 });
 
-// Campaign
-app.http("crm-create-campaign", {
+// Prospect
+app.http("crm-create-prospect", {
   methods: ["POST"],
   authLevel: "anonymous",
-  handler: (r, c) => Authenticate(r, c, HandleCreateCampaign),
-  route: "crm/create/campaign",
+  handler: (r, c) => Authenticate(r, c, HandleCreateProspect),
+  route: "crm/create/prospect",
 });
 
-app.http("crm-list-campaign", {
+app.http("crm-list-prospect", {
   methods: ["GET"],
   authLevel: "anonymous",
-  handler: (r, c) => Authenticate(r, c, HandleListCampaigns),
-  route: "crm/list/campaign",
+  handler: (r, c) => Authenticate(r, c, HandleListProspects),
+  route: "crm/list/prospect",
 });
 
-app.http("crm-get-campaign", {
+app.http("crm-get-prospect", {
   methods: ["GET"],
   authLevel: "anonymous",
-  handler: (r, c) => Authenticate(r, c, HandleGetCampaign),
-  route: "crm/get/campaign/{id}",
+  handler: (r, c) => Authenticate(r, c, HandleGetProspect),
+  route: "crm/get/Prospect/{id}",
 });
 
-app.http("crm-update-campaign", {
+app.http("crm-update-prospect", {
   methods: ["POST"],
   authLevel: "anonymous",
-  handler: (r, c) => Authenticate(r, c, HandleUpdateCampaign),
-  route: "crm/update/campaign/{id}",
+  handler: (r, c) => Authenticate(r, c, HandleUpdateProspect),
+  route: "crm/update/prospect/{id}",
 });
 
-app.http("crm-delete-campaign", {
+app.http("crm-delete-prospect", {
   methods: ["POST"],
   authLevel: "anonymous",
-  handler: (r, c) => Authenticate(r, c, HandleDeleteCampaign),
-  route: "crm/delete/campaign/{id}",
+  handler: (r, c) => Authenticate(r, c, HandleDeleteProspect),
+  route: "crm/delete/prospect/{id}",
 });
