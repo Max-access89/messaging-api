@@ -17,9 +17,10 @@ export interface ForecastItem {
 }
 
 export interface ForecastByLeaderItem {
-  name: string;
-  plan: number;
-  forecast: number;
+  sales_person: string;
+  assigned_plan: number;
+  assigned_opportunity: string;
+  forecast_amount?: number;
 }
 
 // enum Tenure {

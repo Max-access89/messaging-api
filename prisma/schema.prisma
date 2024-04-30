@@ -31,12 +31,13 @@ model ForeCast {
 }
 
 model ForeCastByLeader {
-  id         Int      @id @default(autoincrement())
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  name       String
-  plan       Float
-  forecast   Float
+  id                   Int      @id @default(autoincrement())
+  created_at           DateTime @default(now())
+  updated_at           DateTime @updatedAt
+  sales_person         String
+  assigned_plan        Float
+  assigned_opportunity String
+  forecast_amount      Float?
 }
 
 enum Tenure {
