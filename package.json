@@ -8,8 +8,8 @@
     "prestart": "npm run build",
     "start": "func start",
     "test": "echo \"No tests yet...\"",
-    "prisma-push": "npx prisma db push",
-    "prisma-generate": "npx prisma generate",
+    "push": "npx prisma db push",
+    "generate": "npx prisma generate",
     "pull": "npx prisma db pull",
     "dev": "nodemon --exec \"func start\""
   },
