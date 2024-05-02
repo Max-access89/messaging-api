@@ -37,6 +37,13 @@ import {
   HandleListIssues,
   HandleUpdateIssue,
 } from "../handlers/crm/cases/handlers";
+import {
+  HandleCreateSalesPerson,
+  HandleDeleteSalesPerson,
+  HandleGetSalesPerson,
+  HandleListSalesPersons,
+  HandleUpdateSalesPerson,
+} from "../handlers/crm/salesPerson/handlers";
 
 // Lead
 app.http("crm-get-lead", {
@@ -216,4 +223,40 @@ app.http("crm-delete-case", {
   authLevel: "anonymous",
   handler: (r, c) => Authenticate(r, c, HandleDeleteIssue),
   route: "crm/delete/case/{name}",
+});
+
+// Sales
+app.http("crm-create-sales-team", {
+  methods: ["POST"],
+  authLevel: "anonymous",
+  handler: (r, c) => Authenticate(r, c, HandleCreateSalesPerson),
+  route: "crm/create/sales/team",
+});
+
+app.http("crm-list-sales-team", {
+  methods: ["GET"],
+  authLevel: "anonymous",
+  handler: (r, c) => Authenticate(r, c, HandleListSalesPersons),
+  route: "crm/list/sales/team",
+});
+
+app.http("crm-get-sales-team", {
+  methods: ["GET"],
+  authLevel: "anonymous",
+  handler: (r, c) => Authenticate(r, c, HandleGetSalesPerson),
+  route: "crm/get/sales/team/{name}",
+});
+
+app.http("crm-update-sales-team", {
+  methods: ["POST"],
+  authLevel: "anonymous",
+  handler: (r, c) => Authenticate(r, c, HandleUpdateSalesPerson),
+  route: "crm/update/sales/team/{name}",
+});
+
+app.http("crm-delete-sales-team", {
+  methods: ["POST"],
+  authLevel: "anonymous",
+  handler: (r, c) => Authenticate(r, c, HandleDeleteSalesPerson),
+  route: "crm/delete/sales/team/{name}",
 });
