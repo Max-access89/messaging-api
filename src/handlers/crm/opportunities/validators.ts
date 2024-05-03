@@ -40,22 +40,21 @@ export const HandleCreateOpportunitySchema = z.object({
   // expected_closing: z.date(),
   probability: z.number(),
   // owner: z.string().min(1),
-  no_of_employees: z.enum([
-    "1-10",
-    "11-50",
-    "51-200",
-    "201-500",
-    "501-1000",
-    "1000+",
-  ]),
+  no_of_employees: z
+    .enum(["1-10", "11-50", "51-200", "201-500", "501-1000", "1000+"])
+    .optional(),
   country: z.string().min(1),
-  annual_revenue: z.number(),
-  industry: z.string().min(1),
+  annual_revenue: z.number().optional(),
+  industry: z.string(),
   city: z.string(),
   state: z.string(),
-  territory: z.enum(["All Territories", "Ghana", "Rest of the world"]),
+  territory: z
+    .enum(["All Territories", "Ghana", "Rest of the world"])
+    .optional(),
   website: z.string(),
-  market_segment: z.enum(["Lower Income", "Middle Income", "Upper Income"]),
+  market_segment: z
+    .enum(["Lower Income", "Middle Income", "Upper Income"])
+    .optional(),
   currency: z.string().min(1),
   opportunity_amount: z.number(),
 });

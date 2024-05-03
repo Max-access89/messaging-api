@@ -6,11 +6,11 @@ export const HandleCreateSalesPersonSchema = z.object({
   parent_sales_person: z.string().optional(),
   commission_rate: z.number().positive().optional(),
   is_group: z.boolean().optional(),
-  enabled: z.boolean().optional(),
+  enabled: z.number().optional(),
   employee: z.string().optional(),
   department: z.string().optional(),
-  targets: z.array(z.string()),
-  owner: z.string().min(1),
+  targets: z.array(z.string()).optional(),
+  owner: z.string().min(1).optional(),
 });
 
 export const HandleListSalesPersonSchema = z.object({
