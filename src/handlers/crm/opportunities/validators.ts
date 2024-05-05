@@ -16,14 +16,11 @@ export const HandleCreateOpportunitySchema = z.object({
   party_name: z.string().min(1),
   // customer_name: z.string().min(1),
   sales_stage: z.enum([
-    "Identifying Decision Makers",
-    "Needs Analysis",
-    "Negotiation/Review",
-    "Perception Analysis",
-    "Proposal/Price Quote",
     "Prospecting",
-    "Qualification",
-    "Value Proposition",
+    "Qualifying",
+    "Bid in Development",
+    "Bid in Submission",
+    "Close",
   ]),
   source: z.enum([
     "Advertisement",
@@ -37,7 +34,7 @@ export const HandleCreateOpportunitySchema = z.object({
     "Supplier Reference",
     "Walk in",
   ]),
-  // expected_closing: z.date(),
+  expected_closing: z.string(),
   probability: z.number(),
   // owner: z.string().min(1),
   no_of_employees: z

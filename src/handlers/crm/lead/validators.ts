@@ -3,7 +3,7 @@ import { z } from "zod";
 export const HandleCreateLeadSchema = z.object({
   doctype: z.literal("Lead").default("Lead"),
   job_title: z.string().optional(),
-  salutation: z.enum(["Dr", "Madam", "Mr", "Mrs.", "Ms", "Prof"]).optional(),
+  salutation: z.enum(["Dr", "Madam", "Mr", "Mrs", "Miss", "Prof"]).optional(),
   gender: z.string().min(1),
   first_name: z.string().min(1),
   middle_name: z.string().optional(),
