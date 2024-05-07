@@ -25,9 +25,11 @@ export const HandleGetIssueSchema = z.object({
   name: z.string().min(1),
 });
 
-export const HandleUpdateIssueSchema = HandleCreateIssueSchema.extend({
-  name: z.string().min(1),
-});
+export const HandleUpdateIssueSchema = HandleCreateIssueSchema.partial().extend(
+  {
+    name: z.string().min(1),
+  }
+);
 
 export const HandleDeleteIssueSchema = z.object({
   name: z.string().min(1),

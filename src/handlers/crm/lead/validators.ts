@@ -46,9 +46,10 @@ export const HandleListLeadSchema = z.object({
   view: z.enum(["List"]).default("List"),
 });
 
-export const HandleUpdateLeadSchema = HandleCreateLeadSchema.extend({
+export const HandleUpdateLeadSchema = HandleCreateLeadSchema.partial().extend({
   doctype: z.literal("Lead").default("Lead"),
-}).partial();
+  name: z.string(),
+});
 
 export const HandleDeleteLeadSchema = z.object({
   id: z.string(),

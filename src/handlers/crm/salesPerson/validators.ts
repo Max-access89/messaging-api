@@ -30,8 +30,8 @@ export const HandleGetSalesPersonSchema = z.object({
 });
 
 export const HandleUpdateSalesPersonSchema =
-  HandleCreateSalesPersonSchema.extend({
-    id: z.string().min(1),
+  HandleCreateSalesPersonSchema.partial().extend({
+    name: z.string().min(1),
   });
 
 export const HandleDeleteSalesPersonSchema = z.object({
