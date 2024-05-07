@@ -89,13 +89,25 @@ export async function HandleUpdateOpportunity(
 ): Promise<HttpResponseInit> {
   try {
     const payload = HandleUpdateOpportunitySchema.parse(await request.json());
-    // const response = await SaveDocs(payload.id, payload, context.auth);
+
+    const name = payload.name;
+
+    const existingData = await GetDocById(name, "Opportunity", context.auth);
+
+    console.log(payload);
+
+    const completeData = {
+      ...existingData,
+      ...payload,
+    };
+
+    const response = await SaveDocs(completeData, context.auth);
 
     return {
       status: 200,
       jsonBody: {
         responseInfo: responseInfo["success"],
-        // data: response,
+        data: response,
       },
     };
   } catch (error) {
