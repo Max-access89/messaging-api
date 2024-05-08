@@ -33,7 +33,13 @@ export async function GetPlan(auth: InvocationContext["auth"]) {
     // Check if the user is authenticated, you can add your authentication logic here
 
     // Retrieve the plan record from the database
-    const plan = await prisma.plan.findFirst();
+    // const plan = await prisma.plan.findFirst();
+
+    const plan = await prisma.plan.findFirst({
+      orderBy: {
+        created_at: "desc", // Sort plans by creation timestamp in descending order
+      },
+    });
 
     if (!plan) {
       throw new Error("Plan not found");
