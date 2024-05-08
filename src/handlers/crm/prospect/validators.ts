@@ -35,9 +35,10 @@ export const HandleGetProspectSchema = z.object({
   id: z.string().min(1),
 });
 
-export const HandleUpdateProspectSchema = HandleCreateProspectSchema.extend({
-  id: z.string().min(1),
-});
+export const HandleUpdateProspectSchema =
+  HandleCreateProspectSchema.partial().extend({
+    name: z.string().min(1),
+  });
 
 export const HandleDeleteProspectSchema = z.object({
   id: z.string().min(1),

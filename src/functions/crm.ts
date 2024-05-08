@@ -107,7 +107,7 @@ app.http("crm-update-opportunity", {
   methods: ["POST"],
   authLevel: "anonymous",
   handler: (r, c) => Authenticate(r, c, HandleUpdateOpportunity),
-  route: "crm/update/opportunity/{id}",
+  route: "crm/update/opportunity/{name}",
 });
 
 app.http("crm-delete-opportunity", {

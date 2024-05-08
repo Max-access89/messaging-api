@@ -36,9 +36,10 @@ export const HandleGetCustomerSchema = z.object({
   id: z.string().min(1),
 });
 
-export const HandleUpdateCustomerSchema = HandleCreateCustomerSchema.extend({
-  id: z.string().min(1),
-});
+export const HandleUpdateCustomerSchema =
+  HandleCreateCustomerSchema.partial().extend({
+    name: z.string().min(1),
+  });
 
 export const HandleDeleteCustomerSchema = z.object({
   id: z.string().min(1),

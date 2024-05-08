@@ -73,9 +73,13 @@ export const HandleGetOpportunitySchema = z.object({
 });
 
 export const HandleUpdateOpportunitySchema =
-  HandleCreateOpportunitySchema.extend({
-    id: z.string().min(1),
+  HandleCreateOpportunitySchema.partial().extend({
+    name: z.string().min(1),
   });
+
+// export const HandleUpdateOpportunitySchema = z.object({
+//   name: z.string().min(1),
+// });
 
 export const HandleDeleteOpportunitySchema = z.object({
   id: z.string().min(1),
