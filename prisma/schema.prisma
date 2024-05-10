@@ -10,8 +10,8 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
-  // url      = env("LOCAL_DATABASE_URL")
+  // url      = env("DATABASE_URL")
+  url      = env("LOCAL_DATABASE_URL")
 }
 
 model Plan {
@@ -32,13 +32,13 @@ model ForeCast {
 }
 
 model ForeCastByLeader {
-  id                   Int      @id @default(autoincrement())
-  created_at           DateTime @default(now())
-  updated_at           DateTime @updatedAt
-  sales_person         String
-  assigned_plan        Float
-  assigned_opportunity String
-  forecast_amount      Float?
+  id              Int      @id @default(autoincrement())
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+  sales_person    String
+  assigned_plan   Float
+  forecast_amount Float?
+  won_amount      Float?
 }
 
 enum Tenure {

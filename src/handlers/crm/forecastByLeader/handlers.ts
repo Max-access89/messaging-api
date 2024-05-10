@@ -70,9 +70,23 @@ export async function HandleListForecastByLeader(
           context.auth
         );
 
-        const calculateForecastAmount = async (opportunityID: string) => {
+        const calculateForecastAmount = async (
+          salesPerson: string,
+          status?: string
+        ) => {
           try {
-            const filters = JSON.stringify([["name", "=", opportunityID]]);
+            let filters;
+
+            if (status) {
+              filters = JSON.stringify([
+                ["Opportunity", "opportunity_owner", "=", salesPerson],
+              ]);
+            } else {
+              filters = JSON.stringify([
+                ["Opportunity", "opportunity_owner", "=", salesPerson],
+                ["Opportunity", "status", "=", status],
+              ]);
+            }
 
             // Parse request query with the filters
             const payload = HandleListOpportunitySchema.parse({ filters });
@@ -102,7 +116,14 @@ export async function HandleListForecastByLeader(
 
         for (let item of forecastByLeader) {
           item.forecast_amount = await calculateForecastAmount(
-            item.assigned_opportunity
+            item.sales_person
+          );
+        }
+
+        for (let item of forecastByLeader) {
+          item.won_amount = await calculateForecastAmount(
+            item.sales_person,
+            "Closed"
           );
         }
 
