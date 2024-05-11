@@ -31,6 +31,14 @@ model ForeCast {
   tenure        Tenure
 }
 
+// model Wallet {
+//   id              String   @id
+//   created_at      DateTime @default(now())
+//   updated_at      DateTime @updatedAt
+//   wallet_value    Float
+//   wallet_currency String
+// }
+
 model ForeCastByLeader {
   id              Int      @id @default(autoincrement())
   created_at      DateTime @default(now())
