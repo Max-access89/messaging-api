@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const HandleCreateSalesPersonSchema = z.object({
-  doctype: z.literal("User").default("User"),
+  doctype: z.literal("Sales Person").default("Sales Person"),
   sales_person_name: z.string().min(1),
   parent_sales_person: z.string().optional(),
   commission_rate: z.number().positive().optional(),
@@ -16,7 +16,7 @@ export const HandleCreateSalesPersonSchema = z.object({
 // "User","role_profile_name","=","Sales Person"
 
 export const HandleListSalesPersonSchema = z.object({
-  doctype: z.literal("User").default("User"),
+  doctype: z.literal("Sales Person").default("Sales Person"),
   fields: z.array(z.any()).default(["*"]),
   filters: z.string().optional(),
   order_by: z.string().optional(),
@@ -32,9 +32,17 @@ export const HandleGetSalesPersonSchema = z.object({
 });
 
 export const HandleUpdateSalesPersonSchema =
-  HandleCreateSalesPersonSchema.partial().extend({
-    name: z.string().min(1),
-  });
+  HandleCreateSalesPersonSchema.partial()
+    .nonstrict()
+    .extend({
+      name: z.string().min(1),
+      email: z.string().email().optional(),
+    });
+
+// export const HandleUpdateSalesPersonSchema =
+//   HandleCreateSalesPersonSchema.partial().extend({
+//     name: z.string().min(1),
+//   });
 
 export const HandleDeleteSalesPersonSchema = z.object({
   id: z.string().min(1),

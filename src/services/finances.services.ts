@@ -101,11 +101,18 @@ export async function CreateForecastByLeader(
   }
 }
 
-export async function GetForecastByLeader(auth: InvocationContext["auth"]) {
+export async function GetForecastByLeader(
+  sales_person: string,
+  auth: InvocationContext["auth"]
+) {
   try {
     // Check if the user is authenticated, you can add your authentication logic here
 
-    const forecast = await prisma.foreCastByLeader.findFirst();
+    const forecast = await prisma.foreCastByLeader.findFirst({
+      where: {
+        sales_person: sales_person,
+      },
+    });
 
     if (!forecast) {
       throw new Error("Forecast not found");
