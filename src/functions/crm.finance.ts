@@ -8,6 +8,7 @@ import {
 } from "../handlers/crm/forecast/handlers";
 import {
   HandleCreateForecastByLeader,
+  HandleGetForecastByLeader,
   HandleListForecastByLeader,
 } from "../handlers/crm/forecastByLeader/handlers";
 
@@ -54,4 +55,11 @@ app.http("crm-list-forecast-by-leader", {
   authLevel: "anonymous",
   handler: (r, c) => Authenticate(r, c, HandleListForecastByLeader),
   route: "crm/list/forecast/byleader",
+});
+
+app.http("crm-get-forecast-by-leader", {
+  methods: ["GET"],
+  authLevel: "anonymous",
+  handler: (r, c) => Authenticate(r, c, HandleGetForecastByLeader),
+  route: "crm/get/forecast/byleader/{sales_person}",
 });

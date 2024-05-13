@@ -34,7 +34,7 @@ export const HandleCreateOpportunitySchema = z.object({
     "Supplier Reference",
     "Walk in",
   ]),
-  expected_closing: z.string(),
+  expected_closing: z.string().min(1),
   probability: z.number(),
   // owner: z.string().min(1),
   no_of_employees: z
@@ -42,13 +42,14 @@ export const HandleCreateOpportunitySchema = z.object({
     .optional(),
   country: z.string().min(1),
   annual_revenue: z.number().optional(),
-  industry: z.string(),
-  city: z.string(),
-  state: z.string(),
+  assigned_sales_person: z.string().min(1),
+  industry: z.string().optional(),
+  city: z.string().optional(),
+  state: z.string().optional(),
   territory: z
     .enum(["All Territories", "Ghana", "Rest of the world"])
     .optional(),
-  website: z.string(),
+  website: z.string().optional(),
   market_segment: z
     .enum(["Lower Income", "Middle Income", "Upper Income"])
     .optional(),
@@ -73,9 +74,11 @@ export const HandleGetOpportunitySchema = z.object({
 });
 
 export const HandleUpdateOpportunitySchema =
-  HandleCreateOpportunitySchema.partial().extend({
-    name: z.string().min(1),
-  });
+  HandleCreateOpportunitySchema.partial()
+    .nonstrict()
+    .extend({
+      name: z.string().min(1),
+    });
 
 // export const HandleUpdateOpportunitySchema = z.object({
 //   name: z.string().min(1),
