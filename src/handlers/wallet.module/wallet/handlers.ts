@@ -11,22 +11,23 @@
 //   UpdateWalletSchema,
 // } from "./validators";
 // import { PrismaClient } from "@prisma/client";
+// import { Wallet } from "../../../services/wallet.services";
 
 // export async function HandleCreateWallet(
 //   request: HttpRequest,
 //   context: InvocationContext
 // ): Promise<HttpResponseInit> {
 //   try {
-//     const { wallet_value, wallet_currency, walletId } =
+//     const { wallet_value, wallet_currency, id } =
 //       CreateWalletSchema.parse(await request.json());
 
-//     const wallet = await PrismaClient.wallet.create({
-//       data: {
-//         id: walletId,
+//       const data = {
+//         id: id,
 //         wallet_value,
 //         wallet_currency,
 //       },
-//     });
+
+//     const wallet = await Wallet.CreateWallet(data, context.auth);
 //     return {
 //       status: 200,
 //       jsonBody: {
@@ -46,9 +47,7 @@
 //   try {
 //     const { walletId } = GetWalletSchema.parse(await request.json());
 
-//     const wallet = await prismaClient.wallet.findUnique({
-//       where: { id: walletId },
-//     });
+//     const wallet = await Wallet.GetWallet(walletId, context.auth);
 //     if (!wallet) {
 //       throw new Error("Wallet not found");
 //     }
@@ -73,7 +72,7 @@
 
 //     const { amount } = UpdateWalletSchema.parse(await request.json());
 
-//     const wallet = await prismaClient.wallet.update({
+//     const wallet = await Wallet.({
 //       where: { id: walletId },
 //       data: {
 //         wallet_value: {
@@ -98,7 +97,7 @@
 //   context: InvocationContext
 // ): Promise<HttpResponseInit> {
 //   try {
-//     const wallets = await prismaClient.wallet.findMany();
+//     const wallets = await Wallet.ListWallets(context.auth);
 //     return {
 //       status: 200,
 //       jsonBody: {
@@ -111,23 +110,23 @@
 //   }
 // }
 
-// export async function HandleDeleteWallet(
-//   request: HttpRequest,
-//   context: InvocationContext
-// ): Promise<HttpResponseInit> {
-//   try {
-//     const walletId = parseInt(request.params.id, 10);
-//     await prismaClient.wallet.delete({
-//       where: { id: walletId },
-//     });
-//     return {
-//       status: 200,
-//       jsonBody: {
-//         responseInfo: responseInfo["success"],
-//         message: "Wallet successfully deleted",
-//       },
-//     };
-//   } catch (error) {
-//     return errorHandler(error);
-//   }
-// }
+// // export async function HandleDeleteWallet(
+// //   request: HttpRequest,
+// //   context: InvocationContext
+// // ): Promise<HttpResponseInit> {
+// //   try {
+// //     const walletId = parseInt(request.params.id, 10);
+// //     await Wallet.delete({
+// //       where: { id: walletId },
+// //     });
+// //     return {
+// //       status: 200,
+// //       jsonBody: {
+// //         responseInfo: responseInfo["success"],
+// //         message: "Wallet successfully deleted",
+// //       },
+// //     };
+// //   } catch (error) {
+// //     return errorHandler(error);
+// //   }
+// // }
