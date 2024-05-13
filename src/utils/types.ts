@@ -28,3 +28,12 @@ export interface ForecastByLeaderItem {
 //   Annual,
 //   Biannual,
 // }
+
+export interface walletType {
+  id: string;
+  created_at?: Date;
+  updated_at?: Date;
+  wallet_value?: number;
+  wallet_currency?: string;
+  last_transaction_amount?: number;
+}

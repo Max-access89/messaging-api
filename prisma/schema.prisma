@@ -32,11 +32,12 @@ model ForeCast {
 }
 
 // model Wallet {
-//   id              String   @id
-//   created_at      DateTime @default(now())
-//   updated_at      DateTime @updatedAt
-//   wallet_value    Float
-//   wallet_currency String
+//   id                      String   @id
+//   created_at              DateTime @default(now())
+//   updated_at              DateTime @updatedAt
+//   wallet_value            Float
+//   wallet_currency         String
+//   last_transaction_amount Float?
 // }
 
 model ForeCastByLeader {
