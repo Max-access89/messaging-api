@@ -13,10 +13,17 @@ export async function SaveDocs(
   auth: InvocationContext["auth"]
 ) {
   const formdata = new FormData();
+
+  console.log("auth", auth);
+
   formdata.append("action", "Save");
+
   formdata.append(
     "doc",
-    JSON.stringify({ ...data, company: auth.organization.name })
+    JSON.stringify({
+      ...data,
+      company: auth?.organization?.name || "Cepodek Inc",
+    })
   );
 
   const { data: response } = await axios<{ docs: [any] }>({
