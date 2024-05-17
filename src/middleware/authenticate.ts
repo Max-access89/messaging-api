@@ -5,7 +5,7 @@ import {
 } from "@azure/functions";
 import { config } from "dotenv";
 import createHttpError from "http-errors";
-import { JwtPayload, decode, verify } from "jsonwebtoken";
+import { Jwt, JwtPayload, decode, verify } from "jsonwebtoken";
 import jwksClient from "jwks-rsa";
 import { errorHandler } from "../features/error.handler";
 import { variables } from "../utils/env";
@@ -17,7 +17,7 @@ type NextFunction = (
 
 config();
 const client = jwksClient({
-  jwksUri: `https://${variables.AUTH0_DOMAIN}/.well-known/jwks.json`,
+  jwksUri: `https://${String(process.env.AUTH0_DOMAIN)}/.well-known/jwks.json`,
 });
 
 export async function Authenticate(
@@ -27,29 +27,43 @@ export async function Authenticate(
 ): Promise<HttpResponseInit> {
   try {
     const [, token] = String(request.headers.get("authorization")).split(" ");
-    // console.log({ request, context, nextFunction });
 
     if (!token) throw createHttpError[401]("Invalid Bearer Token");
 
-    // decode token to obtain KID
-    const decoded = decode(token, { complete: true }) as JwtPayload;
+    const decoded = decode(token, { complete: true }) as Jwt;
 
-    // get signing key with KID
-    const signingKey = await client.getSigningKey(decoded.header.kid);
+    const kid = decoded.header.kid;
+    const signingKey = await client.getSigningKey(kid);
 
-    // verify token with signing key
-    const verified = verify(token, signingKey.getPublicKey(), {
-      audience: [variables.AUTH0_SPA_AUDIENCE],
+    const auth = verify(token, signingKey.getPublicKey(), {
+      audience: [variables.AUTH0_SPA_AUDIENCE, variables.AUTH0_API_AUDIENCE],
       algorithms: ["RS256"],
     }) as JwtPayload;
 
-    // append auth record to invocation context
-    Object.assign(context, {
-      ...context,
-      auth: { ...verified, engine: verified.erpnext },
-    });
+    // access tokens from client credentials
+    if (auth.sub?.includes("@clients")) {
+      const metadata = JSON.parse(auth.metadata["data"]);
 
-    // fire next function
+      Object.assign(auth, {
+        ...auth,
+        organization: {
+          id: metadata.oid,
+          name: metadata.org,
+        },
+        engine: {
+          apiKey: metadata.key,
+          apiSecret: metadata.secret,
+          url: metadata.url,
+        },
+      });
+    }
+
+    Object.assign(context, { ...context, auth });
+
+    // validate subscrition
+
+    // await VerifySubscription(context);
+
     return nextFunction(request, context);
   } catch (error) {
     return errorHandler(error);

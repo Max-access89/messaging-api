@@ -31,15 +31,6 @@ model ForeCast {
   tenure        Tenure
 }
 
-// model Wallet {
-//   id                      String   @id
-//   created_at              DateTime @default(now())
-//   updated_at              DateTime @updatedAt
-//   wallet_value            Float
-//   wallet_currency         String
-//   last_transaction_amount Float?
-// }
-
 model ForeCastByLeader {
   id              Int      @id @default(autoincrement())
   created_at      DateTime @default(now())
@@ -59,3 +50,12 @@ enum Tenure {
 enum ForeCastFrom {
   Opportunity
 }
+
+// model Wallet {
+//   id                      String   @id
+//   created_at              DateTime @default(now())
+//   updated_at              DateTime @updatedAt
+//   wallet_value            Float
+//   wallet_currency         String
+//   last_transaction_amount Float?
+// }
