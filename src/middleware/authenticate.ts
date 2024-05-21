@@ -41,24 +41,35 @@ export async function Authenticate(
     }) as JwtPayload;
 
     // access tokens from client credentials
-    if (auth.sub?.includes("@clients")) {
-      const metadata = JSON.parse(auth.metadata["data"]);
+    // if (auth.sub?.includes("@clients")) {
+    //   const metadata = JSON.parse(auth.metadata["data"]);
 
-      Object.assign(auth, {
-        ...auth,
-        organization: {
-          id: metadata.oid,
-          name: metadata.org,
-        },
-        engine: {
-          apiKey: metadata.key,
-          apiSecret: metadata.secret,
-          url: metadata.url,
-        },
-      });
-    }
+    //   Object.assign(auth, {
+    //     ...auth,
+    //     organization: {
+    //       id: metadata.oid,
+    //       name: metadata.org,
+    //     },
+    //     engine: {
+    //       apiKey: metadata.key,
+    //       apiSecret: metadata.secret,
+    //       url: metadata.url,
+    //     },
+    //   });
+    // }
 
-    Object.assign(context, { ...context, auth });
+    // Object.assign(context, { ...context, auth });
+
+    const verified = verify(token, signingKey.getPublicKey(), {
+      audience: [variables.AUTH0_SPA_AUDIENCE],
+      algorithms: ["RS256"],
+    }) as JwtPayload;
+
+    // append auth record to invocation context
+    Object.assign(context, {
+      ...context,
+      auth: { ...verified, engine: verified.erpnext },
+    });
 
     // validate subscrition
 

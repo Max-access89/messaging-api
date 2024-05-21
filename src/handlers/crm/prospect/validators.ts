@@ -4,6 +4,7 @@ export const HandleCreateProspectSchema = z.object({
   doctype: z.literal("Prospect").default("Prospect"),
   company_name: z.string().optional(),
   owner: z.string().optional(),
+  assigned_sales_person: z.string().optional(),
   market_segment: z
     .enum(["Lower Income", "Middle Income", "Upper Income"])
     .optional(),
