@@ -83,26 +83,6 @@ export async function HandleGetProspect(
   }
 }
 
-// export async function HandleUpdateProspect(
-//   request: HttpRequest,
-//   context: InvocationContext
-// ): Promise<HttpResponseInit> {
-//   try {
-//     const payload = HandleUpdateProspectSchema.parse(await request.json());
-//     // const response = await SaveDocs(payload.id, payload, context.auth);
-
-//     return {
-//       status: 200,
-//       jsonBody: {
-//         responseInfo: responseInfo["success"],
-//         // data: response,
-//       },
-//     };
-//   } catch (error) {
-//     return errorHandler(error);
-//   }
-// }
-
 export async function HandleUpdateProspect(
   request: HttpRequest,
   context: InvocationContext
