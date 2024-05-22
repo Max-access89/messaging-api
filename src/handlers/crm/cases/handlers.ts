@@ -83,26 +83,6 @@ export async function HandleGetIssue(
   }
 }
 
-// export async function HandleUpdateIssue(
-//   request: HttpRequest,
-//   context: InvocationContext
-// ): Promise<HttpResponseInit> {
-//   try {
-//     const payload = HandleUpdateIssueSchema.parse(await request.json());
-//     // const response = await SaveDocs(payload.id, payload, context.auth);
-
-//     return {
-//       status: 200,
-//       jsonBody: {
-//         responseInfo: responseInfo["success"],
-//         // data: response,
-//       },
-//     };
-//   } catch (error) {
-//     return errorHandler(error);
-//   }
-// }
-
 export async function HandleUpdateIssue(
   request: HttpRequest,
   context: InvocationContext
@@ -110,11 +90,9 @@ export async function HandleUpdateIssue(
   try {
     const payload = HandleUpdateIssueSchema.parse(await request.json());
 
-    const name = payload.name;
+    const { name } = HandleUpdateIssueSchema.parse(request.params);
 
     const existingData = await GetDocById(name, "Issue", context.auth);
-
-    console.log(payload);
 
     const completeData = {
       ...existingData,

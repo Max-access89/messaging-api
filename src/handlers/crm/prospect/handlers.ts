@@ -88,19 +88,15 @@ export async function HandleUpdateProspect(
   context: InvocationContext
 ): Promise<HttpResponseInit> {
   try {
-    const payload = request.json();
+    const payload = HandleUpdateProspectSchema.parse(await request.json());
 
-    // const name = payload.name;
     const { name } = HandleUpdateProspectSchema.parse(request.params);
 
     const existingData = await GetDocById(name, "Prospect", context.auth);
 
-    console.log({ name });
-
     const completeData = {
-      ...payload,
-
       ...existingData,
+      ...payload,
     };
 
     const response = await SaveDocs(completeData, context.auth);

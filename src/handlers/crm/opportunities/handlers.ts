@@ -90,11 +90,9 @@ export async function HandleUpdateOpportunity(
   try {
     const payload = HandleUpdateOpportunitySchema.parse(await request.json());
 
-    const name = payload.name;
+    const { name } = HandleUpdateOpportunitySchema.parse(request.params);
 
     const existingData = await GetDocById(name, "Opportunity", context.auth);
-
-    console.log(payload);
 
     const completeData = {
       ...existingData,

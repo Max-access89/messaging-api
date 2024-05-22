@@ -90,11 +90,9 @@ export async function HandleUpdateSalesPerson(
   try {
     const payload = HandleUpdateSalesPersonSchema.parse(await request.json());
 
-    const name = payload.name;
+    const { name } = HandleUpdateSalesPersonSchema.parse(request.params);
 
     const existingData = await GetDocById(name, "Sales Person", context.auth);
-
-    console.log(payload);
 
     const completeData = {
       ...existingData,
