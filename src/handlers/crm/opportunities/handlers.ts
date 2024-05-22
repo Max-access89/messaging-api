@@ -90,11 +90,9 @@ export async function HandleUpdateOpportunity(
   try {
     const payload = HandleUpdateOpportunitySchema.parse(await request.json());
 
-    const name = payload.name;
+    const { name } = HandleUpdateOpportunitySchema.parse(request.params);
 
     const existingData = await GetDocById(name, "Opportunity", context.auth);
-
-    console.log(payload);
 
     const completeData = {
       ...existingData,
@@ -121,7 +119,7 @@ export async function HandleDeleteOpportunity(
 ): Promise<HttpResponseInit> {
   try {
     const { id } = HandleDeleteOpportunitySchema.parse(request.params);
-    const message = await DeleteDoc(id, context.auth);
+    const message = await DeleteDoc(id, "Opportunity", context.auth);
 
     return {
       status: 200,

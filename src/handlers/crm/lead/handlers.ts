@@ -82,29 +82,6 @@ export async function HandleGetLead(
   }
 }
 
-// export async function HandleUpdateLead(
-//   request: HttpRequest,
-//   context: InvocationContext
-// ): Promise<HttpResponseInit> {
-//   try {
-//     const { id } = request.params;
-//     const payload = HandleUpdateLeadSchema.parse(await request.json());
-
-//     // const response = await UpdateDoc(id, payload, context.auth);
-//     // const response = await SaveDocs(payload, context.auth);
-
-//     return {
-//       status: 200,
-//       jsonBody: {
-//         responseInfo: responseInfo["success"],
-//         // data: response,
-//       },
-//     };
-//   } catch (error) {
-//     return errorHandler(error);
-//   }
-// }
-
 export async function HandleUpdateLead(
   request: HttpRequest,
   context: InvocationContext
@@ -112,12 +89,11 @@ export async function HandleUpdateLead(
   try {
     const payload = HandleUpdateLeadSchema.parse(await request.json());
 
-    const name = payload.name;
+    const { name } = HandleUpdateLeadSchema.parse(request.params);
 
     const existingData = await GetDocById(name, "Lead", context.auth);
 
-    console.log(payload);
-
+    console.log({ existingData, payload });
     const completeData = {
       ...existingData,
       ...payload,
@@ -144,7 +120,7 @@ export async function HandleDeleteLead(
   try {
     const { id } = request.params;
 
-    const response = await DeleteDoc(id, context.auth);
+    const response = await DeleteDoc(id, "Lead", context.auth);
 
     return {
       status: 200,

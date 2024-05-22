@@ -14,8 +14,6 @@ export async function SaveDocs(
 ) {
   const formdata = new FormData();
 
-  console.log("auth", auth);
-
   formdata.append("action", "Save");
 
   formdata.append(
@@ -105,10 +103,12 @@ export async function GetDocById(
 
 export async function DeleteDoc(
   docId: string,
+  doctype: string,
   auth: InvocationContext["auth"]
 ) {
   const formdata = new FormData();
   formdata.append("name", docId); // Assuming "name" is the unique identifier
+  formdata.append("doctype", doctype);
 
   const { data: response } = await axios<{ message: string }>({
     method: "POST",

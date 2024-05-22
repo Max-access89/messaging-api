@@ -39,5 +39,6 @@ export const HandleUpdateProspectSchema =
   });
 
 export const HandleDeleteProspectSchema = z.object({
+  doctype: z.literal("Prospect").default("Prospect"),
   id: z.string().min(1),
 });

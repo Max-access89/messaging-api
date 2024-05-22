@@ -90,11 +90,9 @@ export async function HandleUpdateProspect(
   try {
     const payload = HandleUpdateProspectSchema.parse(await request.json());
 
-    const name = payload.name;
+    const { name } = HandleUpdateProspectSchema.parse(request.params);
 
     const existingData = await GetDocById(name, "Prospect", context.auth);
-
-    console.log(payload);
 
     const completeData = {
       ...existingData,
@@ -121,7 +119,11 @@ export async function HandleDeleteProspect(
 ): Promise<HttpResponseInit> {
   try {
     const { id } = HandleDeleteProspectSchema.parse(request.params);
-    const message = await DeleteDoc(id, context.auth);
+
+    console.log({ id });
+    const message = await DeleteDoc(id, "Prospect", context.auth);
+
+    console.log({ message });
 
     return {
       status: 200,

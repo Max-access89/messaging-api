@@ -90,11 +90,9 @@ export async function HandleUpdateCustomer(
   try {
     const payload = HandleUpdateCustomerSchema.parse(await request.json());
 
-    const name = payload.name;
+    const { name } = HandleUpdateCustomerSchema.parse(request.params);
 
     const existingData = await GetDocById(name, "Customer", context.auth);
-
-    console.log(payload);
 
     const completeData = {
       ...existingData,
@@ -121,7 +119,7 @@ export async function HandleDeleteCustomer(
 ): Promise<HttpResponseInit> {
   try {
     const { id } = HandleDeleteCustomerSchema.parse(request.params);
-    const message = await DeleteDoc(id, context.auth);
+    const message = await DeleteDoc(id, "Customer", context.auth);
 
     return {
       status: 200,
