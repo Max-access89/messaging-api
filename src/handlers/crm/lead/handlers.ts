@@ -93,6 +93,7 @@ export async function HandleUpdateLead(
 
     const existingData = await GetDocById(name, "Lead", context.auth);
 
+    console.log({ existingData, payload });
     const completeData = {
       ...existingData,
       ...payload,

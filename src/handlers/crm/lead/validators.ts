@@ -5,6 +5,7 @@ export const HandleCreateLeadSchema = z.object({
   job_title: z.string().optional(),
   salutation: z.enum(["Dr", "Madam", "Mr", "Mrs", "Miss", "Prof"]).optional(),
   gender: z.string().min(1),
+  assigned_sales_person: z.string().optional(),
   first_name: z.string().min(1),
   middle_name: z.string().optional(),
   last_name: z.string(),

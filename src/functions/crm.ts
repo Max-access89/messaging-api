@@ -71,7 +71,7 @@ app.http("crm-update-lead", {
   methods: ["POST"],
   authLevel: "anonymous",
   handler: (r, c) => Authenticate(r, c, HandleUpdateLead),
-  route: "crm/update/lead/{id}",
+  route: "crm/update/lead/{name}",
 });
 
 app.http("crm-delete-lead", {
