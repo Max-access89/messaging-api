@@ -141,7 +141,7 @@ export async function HandleDeleteIssue(
 ): Promise<HttpResponseInit> {
   try {
     const { name } = HandleDeleteIssueSchema.parse(request.params);
-    const message = await DeleteDoc(name, context.auth);
+    const message = await DeleteDoc(name, "Issue", context.auth);
 
     return {
       status: 200,

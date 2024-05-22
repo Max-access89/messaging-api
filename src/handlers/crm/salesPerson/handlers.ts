@@ -121,7 +121,9 @@ export async function HandleDeleteSalesPerson(
 ): Promise<HttpResponseInit> {
   try {
     const { id } = HandleDeleteSalesPersonSchema.parse(request.params);
-    const message = await DeleteDoc(id, context.auth);
+
+    console.log({ id });
+    const message = await DeleteDoc(id, "Sales Person", context.auth);
 
     return {
       status: 200,

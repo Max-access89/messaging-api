@@ -144,7 +144,7 @@ export async function HandleDeleteLead(
   try {
     const { id } = request.params;
 
-    const response = await DeleteDoc(id, context.auth);
+    const response = await DeleteDoc(id, "Lead", context.auth);
 
     return {
       status: 200,

@@ -179,7 +179,7 @@ app.http("crm-update-prospect", {
   methods: ["POST"],
   authLevel: "anonymous",
   handler: (r, c) => Authenticate(r, c, HandleUpdateProspect),
-  route: "crm/update/prospect/{id}",
+  route: "crm/update/prospect/{name}",
 });
 
 app.http("crm-delete-prospect", {
@@ -258,5 +258,5 @@ app.http("crm-delete-sales-team", {
   methods: ["POST"],
   authLevel: "anonymous",
   handler: (r, c) => Authenticate(r, c, HandleDeleteSalesPerson),
-  route: "crm/delete/sales/team/{name}",
+  route: "crm/delete/sales/team/{id}",
 });

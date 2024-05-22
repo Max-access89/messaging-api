@@ -121,7 +121,7 @@ export async function HandleDeleteOpportunity(
 ): Promise<HttpResponseInit> {
   try {
     const { id } = HandleDeleteOpportunitySchema.parse(request.params);
-    const message = await DeleteDoc(id, context.auth);
+    const message = await DeleteDoc(id, "Opportunity", context.auth);
 
     return {
       status: 200,
