@@ -44,6 +44,49 @@ import {
   HandleListSalesPersons,
   HandleUpdateSalesPerson,
 } from "../handlers/crm/salesPerson/handlers";
+import {
+  HandleCreateItem,
+  HandleDeleteItem,
+  HandleGetItem,
+  HandleListItem,
+  HandleUpdateItem,
+} from "../handlers/crm/items/handlers";
+
+// Item
+app.http("crm-get-item", {
+  methods: ["GET"],
+  authLevel: "anonymous",
+  handler: (r, c) => Authenticate(r, c, HandleGetItem),
+  route: "crm/get/item/{id}",
+});
+
+app.http("crm-create-item", {
+  methods: ["POST"],
+  authLevel: "anonymous",
+  handler: (r, c) => Authenticate(r, c, HandleCreateItem),
+  route: "crm/create/item",
+});
+
+app.http("crm-list-item", {
+  methods: ["GET"],
+  authLevel: "anonymous",
+  handler: (r, c) => Authenticate(r, c, HandleListItem),
+  route: "crm/list/item",
+});
+
+app.http("crm-update-item", {
+  methods: ["POST"],
+  authLevel: "anonymous",
+  handler: (r, c) => Authenticate(r, c, HandleUpdateItem),
+  route: "crm/update/item/{name}",
+});
+
+app.http("crm-delete-item", {
+  methods: ["POST"],
+  authLevel: "anonymous",
+  handler: (r, c) => Authenticate(r, c, HandleDeleteItem),
+  route: "crm/delete/item/{id}",
+});
 
 // Lead
 app.http("crm-get-lead", {

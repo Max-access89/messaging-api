@@ -1,5 +1,11 @@
 import { z } from "zod";
 
+const itemsSchema = z.object({
+  item_name: z.string().min(1),
+  rate: z.string().min(1),
+  qty: z.string().min(1),
+});
+
 export const HandleCreateOpportunitySchema = z.object({
   doctype: z.literal("Opportunity").default("Opportunity"),
   status: z.enum([
@@ -14,7 +20,7 @@ export const HandleCreateOpportunitySchema = z.object({
   opportunity_type: z.enum(["Sales", "Maintenance", "Support"]),
   opportunity_from: z.enum(["Customer", "Lead", "Prospect"]),
   party_name: z.string().min(1),
-  // customer_name: z.string().min(1),
+  items: z.array(itemsSchema).optional(),
   sales_stage: z.enum([
     "Prospecting",
     "Qualifying",
