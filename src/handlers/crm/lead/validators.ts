@@ -21,17 +21,17 @@ export const HandleCreateLeadSchema = z.object({
   email_id: z.string().optional(),
   mobile_no: z.string().optional(),
   organization_name: z.string().optional(),
-  // annual_revenue: z.number().optional(),
+  annual_revenue: z.number().optional(),
   territory: z
     .enum(["All Territories", "Ghana", "Rest of the world"])
     .optional(),
-  // no_of_employees: z
-  //   .enum(["1-10", "11-50", "51-200", "201-500", "501-1000", "1000+"])
-  //   .optional(),
+  no_of_employees: z
+    .enum(["1-10", "11-50", "51-200", "201-500", "501-1000", "1000+"])
+    .optional(),
   industry: z.string().optional(),
-  // market_segment: z
-  //   .enum(["Lower Income", "Middle Income", "Upper Income"])
-  //   .optional(),
+  market_segment: z
+    .enum(["Lower Income", "Middle Income", "Upper Income"])
+    .optional(),
   city: z.string().optional(),
   state: z.string().optional(),
   country: z.string().optional(),
