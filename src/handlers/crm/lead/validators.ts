@@ -9,18 +9,17 @@ export const HandleCreateLeadSchema = z.object({
   first_name: z.string().min(1),
   middle_name: z.string().optional(),
   last_name: z.string(),
-  // type: z.enum(["Client", "Consultant", "Channel Partner"]).optional(),
-  request_type: z
-    .enum([
-      "Product Enquiry",
-      "Request for Information",
-      "Suggestions",
-      "Other",
-    ])
-    .optional(),
+  type: z.enum(["Client", "Consultant", "Channel Partner"]).optional(),
+  request_type: z.enum([
+    "Product Enquiry",
+    "Request for Information",
+    "Suggestions",
+    "Other",
+  ]),
   email_id: z.string().optional(),
   mobile_no: z.string().optional(),
   organization_name: z.string().optional(),
+  lead_company_name: z.string().optional(),
   annual_revenue: z.number().optional(),
   territory: z
     .enum(["All Territories", "Ghana", "Rest of the world"])
