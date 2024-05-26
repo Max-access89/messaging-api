@@ -5,30 +5,30 @@ export const HandleCreateProspectSchema = z.object({
   doctype: z.literal("Prospect").default("Prospect"),
   company_name: z.string(),
   owner: z.string().optional(),
-  assigned_sales_person: z.string(),
-  market_segment: z.enum(["Lower Income", "Middle Income", "Upper Income"]),
-  no_of_employees: z.enum([
-    "1-10",
-    "11-50",
-    "51-200",
-    "201-500",
-    "501-1000",
-    "1000+",
-  ]),
-  annual_revenue: z.number(),
-  industry: z.string(),
-  territory: z.enum(["All Territories", "Ghana", "Rest of the world"]),
+  assigned_sales_person: z.string().optional(),
+  market_segment: z
+    .enum(["Lower Income", "Middle Income", "Upper Income"])
+    .optional(),
+  no_of_employees: z
+    .enum(["1-10", "11-50", "51-200", "201-500", "501-1000", "1000+"])
+    .optional(),
+  annual_revenue: z.number().optional(),
+  industry: z.string().optional(),
+  territory: z
+    .enum(["All Territories", "Ghana", "Rest of the world"])
+    .optional(),
   contact_person: z.string().min(1),
   contact_mobile: z
     .string()
     .regex(phoneNumberRegex, "Invalid phone number with country code")
-    .min(1),
+    .optional(),
   contact_email: z.string().email().optional(),
   whatsapp: z
     .string()
     .regex(phoneNumberRegex, "Invalid phone number with country code")
     .optional(),
   website: z.string().optional(),
+  job_title: z.string().optional(),
 });
 
 export const HandleListProspectSchema = z.object({
