@@ -10,6 +10,10 @@ export async function errorHandler(error: any): Promise<HttpResponseInit> {
     '🚀🚀 -> file: error.handler.ts:9 -> errorHandler -> errorResponse:',
     errorResponse
   );
+  console.log(
+    '🚀🚀 -> file: error.handler.ts:9 -> errorHandler -> error:',
+    error
+  );
 
   // default error map
   const errorMap = new Map();
@@ -69,6 +73,7 @@ export async function errorHandler(error: any): Promise<HttpResponseInit> {
   return {
     status: errorMap.get('status'),
     jsonBody: {
+      responseInfo: responseInfo['clientError'],
       message: errorMap.get('message'),
     },
   };
