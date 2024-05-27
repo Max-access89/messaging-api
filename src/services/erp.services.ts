@@ -57,7 +57,7 @@ export async function ListDocs(
     baseURL: variables.ERP_BASEURL,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      Authorization: `token ${variables.ERP_APIKEY}:${variables.ERP_APISECRET}`,
+      Authorization: `token ${auth?.engine?.apiKey}:${auth?.engine?.apiSecret}`,
     },
     data: formdata,
   });
@@ -95,7 +95,7 @@ export async function GetDocById(
     baseURL: variables.ERP_BASEURL,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      Authorization: `token ${variables.ERP_APIKEY}:${variables.ERP_APISECRET}`,
+      Authorization: `token ${auth?.engine?.apiKey}:${auth?.engine?.apiSecret}`,
     },
     data: formdata,
   });
@@ -118,7 +118,7 @@ export async function DeleteDoc(
     baseURL: variables.ERP_BASEURL,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      Authorization: `token ${variables.ERP_APIKEY}:${variables.ERP_APISECRET}`,
+      Authorization: `token ${auth?.engine?.apiKey}:${auth?.engine?.apiSecret}`,
     },
     data: formdata,
   });
