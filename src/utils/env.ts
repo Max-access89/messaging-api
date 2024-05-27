@@ -4,9 +4,6 @@ config();
 
 export const variables = {
   DATABASE_URL: String(process.env.DATABASE_URL),
-  DATABASE_URL_PROD: String(process.env.DATABASE_URL_PROD),
-
-  LOCAL_DATABASE_URL: String(process.env.LOCAL_DATABASE_URL),
 
   // AUTH0
   AUTH0_DOMAIN: String(process.env.AUTH0_DOMAIN),
