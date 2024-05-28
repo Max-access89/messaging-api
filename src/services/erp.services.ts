@@ -30,8 +30,8 @@ export async function SaveDocs(
     baseURL: variables.ERP_BASEURL,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      Authorization: `token ${variables.ERP_APIKEY || "83c5984f9db9948"}:${
-        variables.ERP_APISECRET || "d1ebdd751c17280"
+      Authorization: `token ${variables.ERP_APIKEY}:${
+        variables.ERP_APISECRET
       }`,
     },
     data: formdata,
