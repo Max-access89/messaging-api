@@ -3,7 +3,6 @@ import { config } from "dotenv";
 config();
 
 export const variables = {
-  DATABASE_URL: String(process.env.DATABASE_URL),
 
   // AUTH0
   AUTH0_DOMAIN: String(process.env.AUTH0_DOMAIN),
@@ -18,10 +17,15 @@ export const variables = {
   AUTH0_CONNECTION_ID: String(process.env.AUTH0_CONNECTION_ID),
 
   THIRD_PARTY_SERVICES: String(process.env.THIRD_PARTY_SERVICES),
-  ENGINE_API: String(process.env.ENGINE_API),
   ENVIRONMENT: String(process.env.ENVIRONMENT),
 
-  ERP_BASEURL: String(process.env.ERP_BASEURL),
-  ERP_APIKEY: String(process.env.ERP_APIKEY),
-  ERP_APISECRET: String(process.env.ERP_APISECRET),
+
+  //TWILIO
+  TWILIO_PHONE_NUMBER: String(process.env.TWILIO_PHONE_NUMBER),
+  TWILIO_SERVICE_SID: String(process.env.TWILIO_SERVICE_SID),
+  TWILIO_ACCOUNT_SID: String(process.env.TWILIO_ACCOUNT_SID),
+  TWILIO_AUTH_TOKEN: String(process.env.TWILIO_AUTH_TOKEN),
+  SENDGRID_API_KEY: String(process.env.SENDGRID_API_KEY),
+  SENDER_EMAIL: String(process.env.SENDER_EMAIL),
+  
 };
